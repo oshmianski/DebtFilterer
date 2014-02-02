@@ -71,7 +71,7 @@ public class DockInfo extends DockSimple {
         builder.add(allSumDebtFilterMid, cc.xy(2, 10));
         builder.addSeparator("[ф] Сумма вознаграждения ср.", cc.xyw(1, 11, 3));
         builder.add(allSumDSalaryFilterMid, cc.xy(2, 12));
-        builder.addSeparator("Процесс [фильтр]", cc.xyw(1, 13, 3));
+        builder.addSeparator("Процесс", cc.xyw(1, 13, 3));
         builder.add(progressLabel, cc.xyw(1, 14, 3));
         builder.add(progress, cc.xyw(1, 15, 3));
 
