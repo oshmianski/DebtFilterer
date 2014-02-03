@@ -78,8 +78,8 @@ public class UIProcessorImpl implements UIProcessor {
     }
 
     @Override
-    public void setStartEnable() {
-        dockReestrs.setStartEnable();
+    public void setStartEnable(boolean enable) {
+        dockReestrs.setStartEnable(enable);
     }
 
     @Override

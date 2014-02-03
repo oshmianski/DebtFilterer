@@ -45,7 +45,7 @@ public interface UIProcessor {
     void setDataDockReestr(String reestrTitle);
 
     @RequiresEDT
-    void setStartEnable();
+    void setStartEnable(boolean enable);
 
     @RequiresEDT
     void setButtonLoadReestrsEnable(boolean enable);

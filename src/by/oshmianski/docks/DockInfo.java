@@ -113,6 +113,9 @@ public class DockInfo extends DockSimple {
         if (itemsFilter.size() > 0) {
             allSumDebtFilterMid.setText(formatNumber.format(sumDebtAll.divide(count, 2, RoundingMode.HALF_UP)));
             allSumDSalaryFilterMid.setText(formatNumber.format(sumSalaryAll.divide(count, 2, RoundingMode.HALF_UP)));
+        } else {
+            allSumDebtFilterMid.setText("0");
+            allSumDSalaryFilterMid.setText("0");
         }
     }
 }

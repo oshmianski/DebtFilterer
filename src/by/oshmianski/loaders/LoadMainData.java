@@ -49,6 +49,7 @@ public class LoadMainData implements Runnable, Loader {
     public void run() {
         //действия вначале
 //        ui.startLoading();
+        ui.setStartEnable(false);
 
         try {
             work();
@@ -57,7 +58,7 @@ public class LoadMainData implements Runnable, Loader {
         } finally {
             //окончание
             executed = false;
-            ui.setStartEnable();
+            ui.setStartEnable(true);
         }
     }
 

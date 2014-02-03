@@ -91,9 +91,6 @@ public class DockReestrs extends DockSimple {
                     return;
                 }
 
-                buttonStop.setEnabled(true);
-                buttonStart.setEnabled(false);
-
                 openReestr();
             }
         });
@@ -101,9 +98,6 @@ public class DockReestrs extends DockSimple {
         buttonStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buttonStop.setEnabled(false);
-                buttonStart.setEnabled(true);
-
                 stopOpenReestr();
             }
         });
@@ -247,9 +241,9 @@ public class DockReestrs extends DockSimple {
         return -1;
     }
 
-    public void setStartEnable(){
-        buttonStop.setEnabled(false);
-        buttonStart.setEnabled(true);
+    public void setStartEnable(boolean enable){
+        buttonStop.setEnabled(!enable);
+        buttonStart.setEnabled(enable);
     }
 
     public  void setButtonLoadReestrsEnable(boolean enable){
