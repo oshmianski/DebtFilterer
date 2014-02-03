@@ -1,0 +1,25 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/test" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/swt/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/icu4j/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/japex/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/ktable/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/hibernate/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/swinglabs/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/treetable/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/jfreechart/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/calculation/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/issuesbrowser/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/jgoodiesforms/source" />
+      <root url="file://D:/Temp/glazedlists_java15-1.9.0-dist/extensions/nachocalendar/source" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+  </library>
+</component>
