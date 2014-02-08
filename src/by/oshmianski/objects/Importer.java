@@ -487,7 +487,7 @@ public class Importer {
                 item = noteMove.getFirstItem("dateOperation");
                 dtMove = item.getDateTimeValue();
 
-                if (dtDebtExt.timeDifference(dtMove) < 0) {
+                if (dtDebtExt.timeDifference(dtMove) <= 0) {
                     sum = sum.add(new BigDecimal(noteMove.getItemValueDouble("summ")));
                 }
 

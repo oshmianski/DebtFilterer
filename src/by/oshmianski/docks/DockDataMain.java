@@ -9,6 +9,7 @@ import by.oshmianski.objects.DataMainItem;
 import by.oshmianski.ui.utils.BetterJTable;
 import by.oshmianski.ui.utils.ColorRenderer;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
+import by.oshmianski.utils.AppletParams;
 import by.oshmianski.utils.IconContainer;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
@@ -25,6 +26,9 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.text.DecimalFormat;
 
 /**
@@ -99,6 +103,8 @@ public class DockDataMain extends DockSimple {
             table.setGridColor(AppletWindow.DATA_TABLE_GRID_COLOR);
             table.setSelectionBackground(new Color(217, 235, 245));
             table.setSelectionForeground(Color.BLACK);
+
+            table.addMouseListener(new MouseOpenListener());
 
             TableComparatorChooser.install(table, sortedEntries, AbstractTableComparatorChooser.MULTIPLE_COLUMN_KEYBOARD);
 
@@ -197,5 +203,45 @@ public class DockDataMain extends DockSimple {
 
     public void setReestr(String reestr) {
         this.reestr = reestr;
+    }
+
+    private class MouseOpenListener extends MouseAdapter {
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                try {
+                    if (issuesSelectionModel.getSelected().size() > 0) {
+                        openItem();
+                    }
+                } catch (Exception e2) {
+                    MyLog.add2Log(e2);
+                } finally {
+                }
+            }
+        }
+    }
+
+    private void openItem() {
+        DataMainItem selectedItem = null;
+
+        if (issuesSelectionModel.getSelected().size() > 0) {
+            Object selectedObject = issuesSelectionModel.getSelected().get(0);
+            if (selectedObject instanceof DataMainItem) {
+                selectedItem = (DataMainItem) selectedObject;
+            }
+        }
+
+        if (selectedItem == null) return;
+
+        String runPath = "explorer " +
+                "notes://" +
+                AppletParams.getInstance().getServer() + "/" +
+                AppletParams.getInstance().getDbIDProc() + "/0/" +
+                selectedItem.getUnid() + "?OpenDocument";
+
+        try {
+            Runtime.getRuntime().exec(runPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
