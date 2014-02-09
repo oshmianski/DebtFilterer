@@ -236,4 +236,8 @@ public class DockingContainer {
     public LoadMainData getLoader() {
         return loader;
     }
+
+    public DockDataMain getDockDataMain() {
+        return dockDataMain;
+    }
 }

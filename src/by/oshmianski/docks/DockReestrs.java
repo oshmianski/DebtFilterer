@@ -17,6 +17,7 @@ import ca.odell.glazedlists.swing.DefaultEventListModel;
 import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import ca.odell.glazedlists.swing.GlazedListsSwing;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
+import com.independentsoft.office.word.WordDocument;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -259,6 +260,8 @@ public class DockReestrs extends DockSimple {
     public void setStartEnable(boolean enable) {
         buttonStop.setEnabled(!enable);
         buttonStart.setEnabled(enable);
+        buttonExportWord.setEnabled(enable);
+        buttonExportExcel.setEnabled(enable);
     }
 
     public void setButtonLoadReestrsEnable(boolean enable) {
@@ -272,12 +275,20 @@ public class DockReestrs extends DockSimple {
             if (!dialog.isCanceled()) {
                 String unid = dialog.getSelectedTemplateUnid();
 
-                if (unid.isEmpty()) return;
+                if (unid.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Не выбран шаблон!");
+                    return;
+                }
+                if (dockingContainer.getDockDataMain().getDataMainItems().size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Нет данных!");
+                    return;
+                }
 
                 Session session = null;
                 Database db = null;
                 Document note = null;
                 RichTextItem body = null;
+                String filePath = "";
 
                 try {
                     NotesThread.sinitThread();
@@ -294,10 +305,13 @@ public class DockReestrs extends DockSimple {
                     while (enumeration.hasMoreElements()) {
                         EmbeddedObject eo = (EmbeddedObject) enumeration.nextElement();
                         if (eo.getType() == EmbeddedObject.EMBED_ATTACHMENT) {
-                            eo.extractFile(System.getProperty("java.io.tmpdir") + "/" + eo.getSource());
+                            filePath = System.getProperty("java.io.tmpdir") + "/" + eo.getSource();
+                            eo.extractFile(filePath);
                             eo.remove();
                         }
                     }
+
+                    WordDocument wdoc = new WordDocument(filePath);
 
                 } catch (Exception ex) {
                     MyLog.add2Log(ex);

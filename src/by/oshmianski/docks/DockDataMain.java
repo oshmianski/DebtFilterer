@@ -197,10 +197,6 @@ public class DockDataMain extends DockSimple {
         return filteredEntries;
     }
 
-    public String getReestr() {
-        return reestr;
-    }
-
     public void setReestr(String reestr) {
         this.reestr = reestr;
     }
