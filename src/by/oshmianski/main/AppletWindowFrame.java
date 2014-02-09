@@ -60,6 +60,7 @@ public class AppletWindowFrame extends JFrame {
         ap.setViewPerson(props.getProperty("viewPerson"));
         ap.setViewDebtExt(props.getProperty("viewDebtExt"));
         ap.setViewMove(props.getProperty("viewMove"));
+        ap.setViewTemplateWord(props.getProperty("viewTemplateWord"));
 
         gui = new GUIFrame(this);
         gui.create();

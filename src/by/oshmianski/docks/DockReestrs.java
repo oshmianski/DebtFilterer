@@ -6,8 +6,10 @@ import by.oshmianski.filter.DM.FilteratorReestr;
 import by.oshmianski.loaders.LoadMainData;
 import by.oshmianski.main.AppletWindow;
 import by.oshmianski.objects.Reestr;
+import by.oshmianski.ui.dialogs.DialogTemplateMSWord;
 import by.oshmianski.ui.utils.ActionButton;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
+import by.oshmianski.utils.AppletParams;
 import by.oshmianski.utils.IconContainer;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.*;
@@ -19,6 +21,7 @@ import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import lotus.domino.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +29,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -176,10 +181,10 @@ public class DockReestrs extends DockSimple {
             // Obtain a reusable constraints object to place components in the grid.
             CellConstraints ccButton = new CellConstraints();
 
-            builderButton.add(buttonStart, cc.xy(2, 2));
-            builderButton.add(buttonStop, cc.xy(4, 2));
-            builderButton.add(buttonExportWord, cc.xyw(2, 4, 3));
-            builderButton.add(buttonExportExcel, cc.xyw(2, 6, 3));
+            builderButton.add(buttonStart, ccButton.xy(2, 2));
+            builderButton.add(buttonStop, ccButton.xy(4, 2));
+            builderButton.add(buttonExportWord, ccButton.xyw(2, 4, 3));
+            builderButton.add(buttonExportExcel, ccButton.xyw(2, 6, 3));
 
             panel.add(builderButton.getPanel(), BorderLayout.CENTER);
 
@@ -241,33 +246,92 @@ public class DockReestrs extends DockSimple {
     }
 
     public int getSumType() {
-        if(r1.isSelected())
+        if (r1.isSelected())
             return 1;
-        if(r2.isSelected())
+        if (r2.isSelected())
             return 2;
-        if(r3.isSelected())
+        if (r3.isSelected())
             return 3;
 
         return -1;
     }
 
-    public void setStartEnable(boolean enable){
+    public void setStartEnable(boolean enable) {
         buttonStop.setEnabled(!enable);
         buttonStart.setEnabled(enable);
     }
 
-    public  void setButtonLoadReestrsEnable(boolean enable){
+    public void setButtonLoadReestrsEnable(boolean enable) {
         loadReestrs.setEnabled(enable);
     }
 
-    private class ActionListenerExportMSWord implements ActionListener{
+    private class ActionListenerExportMSWord implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(null, "Not implemented yet!");
+            DialogTemplateMSWord dialog = new DialogTemplateMSWord(null);
+            if (!dialog.isCanceled()) {
+                String unid = dialog.getSelectedTemplateUnid();
+
+                if (unid.isEmpty()) return;
+
+                Session session = null;
+                Database db = null;
+                Document note = null;
+                RichTextItem body = null;
+
+                try {
+                    NotesThread.sinitThread();
+                    session = NotesFactory.createSession();
+
+                    db = session.getDatabase(null, null);
+                    db.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbIDProc());
+                    note = db.getDocumentByUNID(unid);
+
+                    body = (RichTextItem) note.getFirstItem("TemplateFile");
+
+                    Vector v = body.getEmbeddedObjects();
+                    Enumeration enumeration = v.elements();
+                    while (enumeration.hasMoreElements()) {
+                        EmbeddedObject eo = (EmbeddedObject) enumeration.nextElement();
+                        if (eo.getType() == EmbeddedObject.EMBED_ATTACHMENT) {
+                            eo.extractFile(System.getProperty("java.io.tmpdir") + "/" + eo.getSource());
+                            eo.remove();
+                        }
+                    }
+
+                } catch (Exception ex) {
+                    MyLog.add2Log(ex);
+                } finally {
+                    try {
+                        if (body != null) {
+                            body.recycle();
+                        }
+                        if (note != null) {
+                            note.recycle();
+                        }
+                        if (db != null) {
+                            db.recycle();
+                        }
+                        if (session != null) {
+                            session.recycle();
+                        }
+                    } catch (Exception ex) {
+                        MyLog.add2Log(ex);
+                    }
+
+                    try {
+                        NotesThread.stermThread();
+                    } catch (Exception ex) {
+                        MyLog.add2Log(ex);
+                    }
+                }
+            }
+
+            dialog.dispose();
         }
     }
 
-    private class ActionListenerExportMSExcel implements ActionListener{
+    private class ActionListenerExportMSExcel implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             JOptionPane.showMessageDialog(null, "Not implemented yet!");

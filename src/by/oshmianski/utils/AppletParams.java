@@ -19,6 +19,7 @@ public class AppletParams {
     private String viewPerson;
     private String viewDebtExt;
     private String viewMove;
+    private String viewTemplateWord;
 
     public static AppletParams getInstance() {
         return ourInstance;
@@ -36,6 +37,7 @@ public class AppletParams {
         viewPerson = applet.getParameter("viewPerson");
         viewDebtExt = applet.getParameter("viewDebtExt");
         viewMove = applet.getParameter("viewMove");
+        viewTemplateWord = applet.getParameter("viewTemplateWord");
     }
 
     public String getServer() {
@@ -100,5 +102,13 @@ public class AppletParams {
 
     public void setViewMove(String viewMove) {
         this.viewMove = viewMove;
+    }
+
+    public String getViewTemplateWord() {
+        return viewTemplateWord;
+    }
+
+    public void setViewTemplateWord(String viewTemplateWord) {
+        this.viewTemplateWord = viewTemplateWord;
     }
 }
