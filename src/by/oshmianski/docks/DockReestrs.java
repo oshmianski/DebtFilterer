@@ -5,6 +5,7 @@ import by.oshmianski.docks.Setup.DockingContainer;
 import by.oshmianski.filter.DM.FilteratorReestr;
 import by.oshmianski.loaders.LoadMainData;
 import by.oshmianski.main.AppletWindow;
+import by.oshmianski.objects.DataMainItem;
 import by.oshmianski.objects.Reestr;
 import by.oshmianski.ui.dialogs.DialogTemplateMSWord;
 import by.oshmianski.ui.utils.ActionButton;
@@ -17,12 +18,16 @@ import ca.odell.glazedlists.swing.DefaultEventListModel;
 import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import ca.odell.glazedlists.swing.GlazedListsSwing;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
+import com.independentsoft.office.IContentElement;
+import com.independentsoft.office.word.IBlockElement;
+import com.independentsoft.office.word.Run;
+import com.independentsoft.office.word.Text;
 import com.independentsoft.office.word.WordDocument;
 import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import lotus.domino.*;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +35,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -184,7 +191,7 @@ public class DockReestrs extends DockSimple {
 
             builderButton.add(buttonStart, ccButton.xy(2, 2));
             builderButton.add(buttonStop, ccButton.xy(4, 2));
-            builderButton.add(buttonExportWord, ccButton.xyw(2, 4, 3));
+//            builderButton.add(buttonExportWord, ccButton.xyw(2, 4, 3));
             builderButton.add(buttonExportExcel, ccButton.xyw(2, 6, 3));
 
             panel.add(builderButton.getPanel(), BorderLayout.CENTER);
@@ -279,14 +286,15 @@ public class DockReestrs extends DockSimple {
                     JOptionPane.showMessageDialog(null, "Не выбран шаблон!");
                     return;
                 }
-                if (dockingContainer.getDockDataMain().getDataMainItems().size() == 0) {
-                    JOptionPane.showMessageDialog(null, "Нет данных!");
-                    return;
-                }
+//                if (dockingContainer.getDockDataMain().getDataMainItems().size() == 0) {
+//                    JOptionPane.showMessageDialog(null, "Нет данных!");
+//                    return;
+//                }
 
                 Session session = null;
                 Database db = null;
                 Document note = null;
+                Document noteSuit = null;
                 RichTextItem body = null;
                 String filePath = "";
 
@@ -312,6 +320,46 @@ public class DockReestrs extends DockSimple {
                     }
 
                     WordDocument wdoc = new WordDocument(filePath);
+                    WordDocument buffer = wdoc.clone();
+                    WordDocument target = new WordDocument();
+
+                    String strToFindTags = wdoc.toText();
+                    String[] tags = StringUtils.substringsBetween(strToFindTags, "~<", ">~");
+
+                    int i = 0;
+                    int fileResultCount = 1;
+                    boolean isWordNeedSave = false;
+                    for (DataMainItem item : dockingContainer.getDockDataMain().getDataMainItems()) {
+                        noteSuit = db.getDocumentByUNID(item.getUnid());
+
+                        for (String tag : tags) {
+                            if (!"@".equalsIgnoreCase(StringUtils.left(tag, 1))) {
+                                buffer.replace("~<" + tag + ">~", noteSuit.getItemValueString(tag));
+                            }
+                        }
+
+                        for (IBlockElement element : buffer.getBody().getContent()) {
+                            target.getBody().add(element);
+                        }
+
+                        noteSuit = null;
+                        buffer = wdoc.clone();
+
+                        i++;
+                        if (i == 200) {
+                            target.save(System.getProperty("java.io.tmpdir") + "/result" + fileResultCount + ".docx");
+                            target = null;
+                            target = new WordDocument();
+                            fileResultCount++;
+                            i = 0;
+                            isWordNeedSave = false;
+                        } else {
+                            isWordNeedSave = true;
+                        }
+                    }
+
+                    if (isWordNeedSave)
+                        target.save(System.getProperty("java.io.tmpdir") + "/result" + fileResultCount + ".docx");
 
                 } catch (Exception ex) {
                     MyLog.add2Log(ex);
@@ -319,6 +367,9 @@ public class DockReestrs extends DockSimple {
                     try {
                         if (body != null) {
                             body.recycle();
+                        }
+                        if (noteSuit != null) {
+                            noteSuit.recycle();
                         }
                         if (note != null) {
                             note.recycle();
