@@ -16,6 +16,7 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import ca.odell.glazedlists.swing.GlazedListsSwing;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -49,6 +50,8 @@ public class DockReestrs extends DockSimple {
     private ButtonGroup buttonGroup;
     private ActionButton buttonStart;
     private ActionButton buttonStop;
+    private ActionButton buttonExportWord;
+    private ActionButton buttonExportExcel;
     private ActionButton loadReestrs;
 
     private final static String dockTitle = "Реестры";
@@ -82,6 +85,11 @@ public class DockReestrs extends DockSimple {
         buttonStart = new ActionButton("Старт", null, new Dimension(80, 30), "Запуск чтения реестра");
         buttonStop = new ActionButton("Стоп", null, new Dimension(80, 30), "Остановить чтение реестра");
         buttonStop.setEnabled(false);
+
+        buttonExportWord = new ActionButton("Экспорт в MS Word", IconContainer.getInstance().loadImage("page_white_word.png"), new Dimension(160, 30), "Выгрузка данных в MS Word");
+        buttonExportWord.addActionListener(new ActionListenerExportMSWord());
+        buttonExportExcel = new ActionButton("Экспорт в MS Excel", IconContainer.getInstance().loadImage("page_white_excel.png"), new Dimension(160, 30), "Выгрузка данных в MS Excel");
+        buttonExportExcel.addActionListener(new ActionListenerExportMSExcel());
 
         buttonStart.addActionListener(new ActionListener() {
             @Override
@@ -140,7 +148,7 @@ public class DockReestrs extends DockSimple {
                     "5px, right:50px, 5px, left:150px, 5px, 25px, 5px", // columns
                     "2px, 23px, 1px, top:300px, 10px, 20px, 2px, 20px, 2px, 20px, 2px");      // rows
 
-//            FormDebugPanel debugPanel = new FormDebugPanel(layout);
+//            FormDebugPanel debugPanel = new FormDebugPanel();
 //            PanelBuilder builder = new PanelBuilder(layout, debugPanel);
             PanelBuilder builder = new PanelBuilder(layout);
 
@@ -158,11 +166,11 @@ public class DockReestrs extends DockSimple {
             panel.add(builder.getPanel(), BorderLayout.NORTH);
 
             FormLayout layoutButton = new FormLayout(
-                    "15px, right:90px, 20px, left:pref, 5px", // columns
-                    "20px, 40px, 2px");      // rows
+                    "15px, left:90px, 20px, left:pref, 5px", // columns
+                    "20px, 40px, 2px, 40px, 2px, 40px, 2px");      // rows
 
-//            FormDebugPanel debugPanel = new FormDebugPanel(layout);
-//            PanelBuilder builder = new PanelBuilder(layout, debugPanel);
+//            FormDebugPanel debugPanel = new FormDebugPanel();
+//            PanelBuilder builderButton = new PanelBuilder(layoutButton, debugPanel);
             PanelBuilder builderButton = new PanelBuilder(layoutButton);
 
             // Obtain a reusable constraints object to place components in the grid.
@@ -170,6 +178,8 @@ public class DockReestrs extends DockSimple {
 
             builderButton.add(buttonStart, cc.xy(2, 2));
             builderButton.add(buttonStop, cc.xy(4, 2));
+            builderButton.add(buttonExportWord, cc.xyw(2, 4, 3));
+            builderButton.add(buttonExportExcel, cc.xyw(2, 6, 3));
 
             panel.add(builderButton.getPanel(), BorderLayout.CENTER);
 
@@ -248,5 +258,19 @@ public class DockReestrs extends DockSimple {
 
     public  void setButtonLoadReestrsEnable(boolean enable){
         loadReestrs.setEnabled(enable);
+    }
+
+    private class ActionListenerExportMSWord implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(null, "Not implemented yet!");
+        }
+    }
+
+    private class ActionListenerExportMSExcel implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(null, "Not implemented yet!");
+        }
     }
 }
