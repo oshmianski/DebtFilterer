@@ -108,8 +108,8 @@ public class DockInfo extends DockSimple {
         this.sumSalary = sumSalary;
 
         if (count > 0) {
-            allSumDebtMid.setText(sumDebt.divide(new BigDecimal(count), 2, RoundingMode.HALF_UP));
-            allSumDSalaryMid.setText(sumSalary.divide(new BigDecimal(count), 2, RoundingMode.HALF_UP));
+            allSumDebtMid.setText(sumDebt.divide(new BigDecimal(count), 4, RoundingMode.HALF_UP));
+            allSumDSalaryMid.setText(sumSalary.divide(new BigDecimal(count), 4, RoundingMode.HALF_UP));
         } else {
             allSumDebtMid.setText("0");
             allSumDSalaryMid.setText("0");
@@ -132,21 +132,21 @@ public class DockInfo extends DockSimple {
         allSumDSalaryFilter.setText(sumSalaryFilter);
 
         if (itemsFilter.size() > 0) {
-            allSumDebtFilterMid.setText(sumDebtFilter.divide(count, 2, RoundingMode.HALF_UP));
-            allSumDSalaryFilterMid.setText(sumSalaryFilter.divide(count, 2, RoundingMode.HALF_UP));
+            allSumDebtFilterMid.setText(sumDebtFilter.divide(count, 4, RoundingMode.HALF_UP));
+            allSumDSalaryFilterMid.setText(sumSalaryFilter.divide(count, 4, RoundingMode.HALF_UP));
         } else {
             allSumDebtFilterMid.setText("0");
             allSumDSalaryFilterMid.setText("0");
         }
 
         if (!(sumDebt.compareTo(BigDecimal.ZERO) == 0)) {
-            sumExtDebt.setText(sumDebtFilter.divide(sumDebt, 2, RoundingMode.HALF_UP));
+            sumExtDebt.setText(sumDebtFilter.divide(sumDebt, 4, RoundingMode.HALF_UP));
         } else {
             sumExtDebt.setText("1");
         }
 
         if (!(sumSalary.compareTo(BigDecimal.ZERO) == 0)) {
-            sumExtSalary.setText(sumSalaryFilter.divide(sumSalary, 2, RoundingMode.HALF_UP));
+            sumExtSalary.setText(sumSalaryFilter.divide(sumSalary, 4, RoundingMode.HALF_UP));
         } else {
             sumExtSalary.setText("1");
         }

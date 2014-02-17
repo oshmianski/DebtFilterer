@@ -96,6 +96,8 @@ public class Importer {
             BigDecimal sumSalary = new BigDecimal(BigInteger.ZERO);
             int countItems = 0;
 
+            ui.setInfoDataGeneral(countItems, sumDebt, sumSalary);
+
             ve = nav.getFirst();
             while (ve != null) {
                 dataMainItem = processItem(session, db, ve, viewDebt, viewDebtExt, viewMove);

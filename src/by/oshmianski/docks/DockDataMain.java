@@ -230,7 +230,7 @@ public class DockDataMain extends DockSimple {
 
         String runPath = "explorer " +
                 "notes://" +
-                AppletParams.getInstance().getServer() + "/" +
+                AppletParams.getInstance().getServer_cn() + "/" +
                 AppletParams.getInstance().getDbIDProc() + "/0/" +
                 selectedItem.getUnid() + "?OpenDocument";
 
