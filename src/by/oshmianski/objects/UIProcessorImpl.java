@@ -6,6 +6,7 @@ import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
 
 import javax.swing.*;
+import java.math.BigDecimal;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,7 +30,7 @@ public class UIProcessorImpl implements UIProcessor {
     @Override
     public void setFilteredCount() {
         dockDataMain.setDockTitle();
-        setInfoData(dockDataMain.getDataMainItems(), dockDataMain.getFilteredEntries());
+        setInfoData(dockDataMain.getFilteredEntries());
     }
 
     @Override
@@ -53,8 +54,13 @@ public class UIProcessorImpl implements UIProcessor {
     }
 
     @Override
-    public void setInfoData(EventList<DataMainItem> items, FilterList<DataMainItem> itemsFilter) {
-        dockInfo.setInfoData(items, itemsFilter);
+    public void setInfoData(FilterList<DataMainItem> itemsFilter) {
+        dockInfo.setInfoData(itemsFilter);
+    }
+
+    @Override
+    public void setInfoDataGeneral(int count, BigDecimal sumDebt, BigDecimal sumSalary) {
+        dockInfo.setInfoDataGeneral(count, sumDebt, sumSalary);
     }
 
     @Override

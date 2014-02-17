@@ -92,11 +92,19 @@ public class Importer {
             ui.setProgressValue(0);
             ui.setProgressMaximum(count);
 
+            BigDecimal sumDebt = new BigDecimal(BigInteger.ZERO);
+            BigDecimal sumSalary = new BigDecimal(BigInteger.ZERO);
+            int countItems = 0;
+
             ve = nav.getFirst();
             while (ve != null) {
                 dataMainItem = processItem(session, db, ve, viewDebt, viewDebtExt, viewMove);
 
+                sumDebt = sumDebt.add(dataMainItem.getSumDebt());
+                sumSalary = sumSalary.add(dataMainItem.getSumSalary());
+
                 ui.appendDataMainItem(dataMainItem);
+                countItems++;
 
                 vetmp = nav.getNext();
                 ve.recycle();
@@ -111,6 +119,7 @@ public class Importer {
             }
 
             ui.setFilteredCount();
+            ui.setInfoDataGeneral(countItems, sumDebt, sumSalary);
         } catch (Exception e) {
             MyLog.add2Log(e);
         } finally {
@@ -211,7 +220,7 @@ public class Importer {
                             } else {
                                 noteDebtExt = getLastDebtExtByDate(db, colDebtExt);
 
-                                if(item != null){
+                                if (item != null) {
                                     item.recycle();
                                 }
                                 item = noteDebtExt.getFirstItem("importFileReestDate");
@@ -281,7 +290,7 @@ public class Importer {
 
         {
             try {
-                if(item != null){
+                if (item != null) {
                     item.recycle();
                 }
                 if (dtDebtExt != null) {
@@ -424,7 +433,7 @@ public class Importer {
                 item = noteDebtExt.getFirstItem("importFileReestDate");
                 dtDebtExtTmp = item.getDateTimeValue();
 
-                if(dtDebtExtTmp.timeDifference(dtDebtExt) > 0){
+                if (dtDebtExtTmp.timeDifference(dtDebtExt) > 0) {
                     unid = noteDebtExt.getUniversalID();
                     dtDebtExt.recycle();
                     dtDebtExt = item.getDateTimeValue();
@@ -434,7 +443,7 @@ public class Importer {
                 noteDebtExt.recycle();
                 noteDebtExt = noteDebtExtTmp;
 
-                if(dtDebtExtTmp != null){
+                if (dtDebtExtTmp != null) {
                     dtDebtExtTmp.recycle();
                 }
             }
@@ -445,10 +454,10 @@ public class Importer {
             MyLog.add2Log(e);
         } finally {
             try {
-                if(item != null){
+                if (item != null) {
                     item.recycle();
                 }
-                if(dtDebtExtTmp != null){
+                if (dtDebtExtTmp != null) {
                     dtDebtExtTmp.recycle();
                 }
                 if (dtDebtExt != null) {
@@ -495,7 +504,7 @@ public class Importer {
                 noteMove.recycle();
                 noteMove = noteMoveTmp;
 
-                if(item != null){
+                if (item != null) {
                     item.recycle();
                 }
             }
@@ -504,7 +513,7 @@ public class Importer {
             MyLog.add2Log(e);
         } finally {
             try {
-                if(item != null){
+                if (item != null) {
                     item.recycle();
                 }
                 if (dtMove != null) {

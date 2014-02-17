@@ -2,10 +2,9 @@ package by.oshmianski.ui.edt;
 
 import by.oshmianski.objects.DataMainItem;
 import by.oshmianski.objects.Reestr;
-import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
 
-import javax.swing.*;
+import java.math.BigDecimal;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,7 +32,10 @@ public interface UIProcessor {
     void setProgressMaximum(int maximum);
 
     @RequiresEDT
-    void setInfoData(EventList<DataMainItem> items, FilterList<DataMainItem> itemsFilter);
+    void setInfoData(FilterList<DataMainItem> itemsFilter);
+
+    @RequiresEDT
+    void setInfoDataGeneral(int count, BigDecimal sumDebt, BigDecimal sumSalary);
 
     @RequiresEDT
     void clearDataMainItems();

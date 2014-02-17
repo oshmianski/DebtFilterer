@@ -12,6 +12,7 @@ public class AppletParams {
     private static AppletParams ourInstance = new AppletParams();
 
     private String server = "";
+    private String server_cn = "";
     private String dbIDProc;
     private String dbIDLiK;
     private String viewSuit;
@@ -30,6 +31,7 @@ public class AppletParams {
 
     public void getParams(JApplet applet){
         server = applet.getParameter("server");
+        server_cn = applet.getParameter("server_cn");
         dbIDProc = applet.getParameter("dbIDProc");
         dbIDLiK = applet.getParameter("dbIDLiK");
         viewSuit = applet.getParameter("viewSuit");
@@ -110,5 +112,13 @@ public class AppletParams {
 
     public void setViewTemplateWord(String viewTemplateWord) {
         this.viewTemplateWord = viewTemplateWord;
+    }
+
+    public String getServer_cn() {
+        return server_cn;
+    }
+
+    public void setServer_cn(String server_cn) {
+        this.server_cn = server_cn;
     }
 }
