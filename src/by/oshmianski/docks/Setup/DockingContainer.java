@@ -108,7 +108,7 @@ public class DockingContainer {
         control.addDockable(dockDataMainFilter);
 
         grid.add(0, 0, 10, 70, dockReestrs);
-        grid.add(0, 70, 10, 30, dockMSWordExport);
+//        grid.add(0, 70, 10, 30, dockMSWordExport);
         grid.add(10, 0, 80, 100, dockDataMain);
         grid.add(90, 0, 10, 50, dockDataMainFilter);
         grid.add(90, 50, 10, 50, dockInfo);

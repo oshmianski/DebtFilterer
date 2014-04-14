@@ -24,7 +24,7 @@ public class DockMSWordExport extends DockSimple {
     private JTextField filterEdit;
     private ActionButton buttonExportWord;
 
-    private final static String dockTitle = "Экстпор MW Word";
+    private final static String dockTitle = "Экстпор MS Word";
 
     public DockMSWordExport(final DockingContainer dockingContainer) {
         super("DockMSWordExport", IconContainer.getInstance().loadImage("layers.png"), dockTitle);
