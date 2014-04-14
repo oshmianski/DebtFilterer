@@ -18,8 +18,9 @@ public class DataMainItem {
     private BigDecimal feeRate;
     private boolean draft;
     private boolean exclude;
+    private boolean numbered;
 
-    public DataMainItem(String unid, String accounts, String fio, BigDecimal sumDebt, BigDecimal sumSalary, boolean draft, boolean exclude) {
+    public DataMainItem(String unid, String accounts, String fio, BigDecimal sumDebt, BigDecimal sumSalary, boolean draft, boolean exclude, boolean numbered) {
         this.unid = unid;
         this.accounts = accounts;
         this.fio = fio;
@@ -27,6 +28,7 @@ public class DataMainItem {
         this.sumSalary = sumSalary;
         this.draft = draft;
         this.exclude = exclude;
+        this.numbered = numbered;
     }
 
     public String getUnid() {
@@ -99,5 +101,13 @@ public class DataMainItem {
 
     public void setExclude(boolean exclude) {
         this.exclude = exclude;
+    }
+
+    public boolean isNumbered() {
+        return numbered;
+    }
+
+    public void setNumbered(boolean numbered) {
+        this.numbered = numbered;
     }
 }

@@ -48,6 +48,7 @@ public class FilterPanel {
     private RangeMatcherEditorSumSalary rangeMatcherEditorSumSalary;
     private RangeMatcherEditorSumDebt rangeMatcherEditorSumDebt;
     private BooleanMatcherEditorDraft booleanMatcherEditorDraft;
+    private BooleanMatcherEditorNumbered booleanMatcherEditorNumbered;
     private BooleanMatcherEditorExclude booleanMatcherEditorExclude;
 
     private EventList<MatcherEditor<DataMainItem>> matcherEditors;
@@ -83,12 +84,16 @@ public class FilterPanel {
         FilteratorDMDraft filteratorDMDraft = new FilteratorDMDraft();
         booleanMatcherEditorDraft = new BooleanMatcherEditorDraft(filteratorDMDraft, container);
 
+        FilteratorDMNumbered filteratorDMNumbered = new FilteratorDMNumbered();
+        booleanMatcherEditorNumbered = new BooleanMatcherEditorNumbered(filteratorDMNumbered, container);
+
         FilteratorDMExclude filteratorDMExclude = new FilteratorDMExclude();
         booleanMatcherEditorExclude = new BooleanMatcherEditorExclude(filteratorDMExclude, container);
 
         this.selectedFilterComponents.add(new CloseableFilterComponent(model, rangeMatcherEditorSumDebt, selectedFilterComponents, remainingFilterComponents, visibleControl));
         this.selectedFilterComponents.add(new CloseableFilterComponent(model, rangeMatcherEditorSumSalary, selectedFilterComponents, remainingFilterComponents, visibleControl));
         this.selectedFilterComponents.add(new CloseableFilterComponent(model, booleanMatcherEditorDraft, selectedFilterComponents, remainingFilterComponents, visibleControl));
+        this.selectedFilterComponents.add(new CloseableFilterComponent(model, booleanMatcherEditorNumbered, selectedFilterComponents, remainingFilterComponents, visibleControl));
         this.selectedFilterComponents.add(new CloseableFilterComponent(model, booleanMatcherEditorExclude, selectedFilterComponents, remainingFilterComponents, visibleControl));
         // and then have the rest
 

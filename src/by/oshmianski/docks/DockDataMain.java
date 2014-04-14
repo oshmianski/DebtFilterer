@@ -86,6 +86,7 @@ public class DockDataMain extends DockSimple {
             table.getColumnModel().getColumn(4).setPreferredWidth(160);
             table.getColumnModel().getColumn(5).setPreferredWidth(100);
             table.getColumnModel().getColumn(6).setPreferredWidth(100);
+            table.getColumnModel().getColumn(7).setPreferredWidth(100);
 
             DecimalFormat df = new DecimalFormat("###,##0");
             table.getColumnModel().getColumn(0).setCellRenderer(new ColorRenderer(Color.BLACK, false));
@@ -95,6 +96,7 @@ public class DockDataMain extends DockSimple {
             table.getColumnModel().getColumn(4).setCellRenderer(new ColorRenderer(Color.BLUE, false));
             table.getColumnModel().getColumn(5).setCellRenderer(new ColorRenderer(Color.BLACK, false));
             table.getColumnModel().getColumn(6).setCellRenderer(new ColorRenderer(Color.BLUE, false));
+            table.getColumnModel().getColumn(7).setCellRenderer(new ColorRenderer(Color.BLACK, false));
 
             table.setRowHeight(20);
             table.setShowHorizontalLines(true);

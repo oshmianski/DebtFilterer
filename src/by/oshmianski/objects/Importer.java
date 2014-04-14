@@ -280,7 +280,8 @@ public class Importer {
                     sumDebtAll,
                     sumSalaryAll,
                     "1".equalsIgnoreCase(noteSuit.getItemValueString("isDraft")),
-                    isExclude);
+                    isExclude,
+                    !noteSuit.getItemValueString("numExport").isEmpty());
 
         } catch (
                 Exception e
