@@ -12,6 +12,7 @@ public class DataMainItem {
     private String unid;
     private String accounts;
     private String fio;
+    private Long numExport;
     private BigDecimal sumDebt;
     private BigDecimal sumSalary;
     private BigDecimal sumMove;
@@ -20,7 +21,16 @@ public class DataMainItem {
     private boolean exclude;
     private boolean numbered;
 
-    public DataMainItem(String unid, String accounts, String fio, BigDecimal sumDebt, BigDecimal sumSalary, boolean draft, boolean exclude, boolean numbered) {
+    public DataMainItem(
+            String unid,
+            String accounts,
+            String fio,
+            BigDecimal sumDebt,
+            BigDecimal sumSalary,
+            boolean draft,
+            boolean exclude,
+            boolean numbered,
+            Long numExport) {
         this.unid = unid;
         this.accounts = accounts;
         this.fio = fio;
@@ -29,6 +39,7 @@ public class DataMainItem {
         this.draft = draft;
         this.exclude = exclude;
         this.numbered = numbered;
+        this.numExport = numExport;
     }
 
     public String getUnid() {
@@ -109,5 +120,13 @@ public class DataMainItem {
 
     public void setNumbered(boolean numbered) {
         this.numbered = numbered;
+    }
+
+    public Long getNumExport() {
+        return numExport;
+    }
+
+    public void setNumExport(Long numExport) {
+        this.numExport = numExport;
     }
 }

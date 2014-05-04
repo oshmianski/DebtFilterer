@@ -199,6 +199,8 @@ public class Importer {
 
         StringBuilder accounts = new StringBuilder();
         String separator = "";
+        Long numExport;
+        String numExportStr = "";
         int sumType = ui.getSumType();
 
         boolean isExclude = true;
@@ -273,6 +275,13 @@ public class Importer {
                 }
             }
 
+            numExportStr = noteSuit.getItemValueString("numExport");
+            if (numExportStr.isEmpty()) {
+                numExport = new Long(-1);
+            } else {
+                numExport = new Long(numExportStr.substring(numExportStr.indexOf("/") + 1));
+            }
+
             dataMainItem = new DataMainItem(
                     ve.getUniversalID(),
                     accounts.toString(),
@@ -281,7 +290,8 @@ public class Importer {
                     sumSalaryAll,
                     "1".equalsIgnoreCase(noteSuit.getItemValueString("isDraft")),
                     isExclude,
-                    !noteSuit.getItemValueString("numExport").isEmpty());
+                    !noteSuit.getItemValueString("numExport").isEmpty(),
+                    numExport);
 
         } catch (
                 Exception e
