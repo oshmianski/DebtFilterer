@@ -17,6 +17,7 @@ import by.oshmianski.filter.DM.FilterPanel;
 import by.oshmianski.loaders.LoadMainData;
 import by.oshmianski.loaders.LoadReestrs;
 import by.oshmianski.main.AppletWindow;
+import by.oshmianski.objects.ProgressGlassPane;
 import by.oshmianski.objects.UIProcessorImpl;
 import by.oshmianski.ui.edt.EDTInvocationHandler;
 import by.oshmianski.ui.edt.UIProcessor;
@@ -47,9 +48,17 @@ public class DockingContainer {
     private LoadReestrs loadReestrs;
     private UIProcessor uiProcessor;
 
+    private JFrame frame;
+    private ProgressGlassPane glassPane;
+
     public DockingContainer(JFrame frame, JPanel mainPanel) {
         control = new CControl(frame, true);
         this.mainPanel = mainPanel;
+        this.frame = frame;
+
+        glassPane = new ProgressGlassPane();
+        glassPane.setVisible(true);
+        frame.setGlassPane(glassPane);
 
         construct();
     }
@@ -242,5 +251,9 @@ public class DockingContainer {
 
     public DockDataMain getDockDataMain() {
         return dockDataMain;
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }

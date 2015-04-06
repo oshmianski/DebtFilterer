@@ -192,7 +192,7 @@ public class DockReestrs extends DockSimple {
             builderButton.add(buttonStart, ccButton.xy(2, 2));
             builderButton.add(buttonStop, ccButton.xy(4, 2));
 //            builderButton.add(buttonExportWord, ccButton.xyw(2, 4, 3));
-            builderButton.add(buttonExportExcel, ccButton.xyw(2, 6, 3));
+//            builderButton.add(buttonExportExcel, ccButton.xyw(2, 6, 3));
 
             panel.add(builderButton.getPanel(), BorderLayout.CENTER);
 
@@ -208,7 +208,7 @@ public class DockReestrs extends DockSimple {
     }
 
     public void dispose() {
-        System.out.println("DockReestrs clear...");
+        System.out.println("DideockReestrs clear...");
 
         if (listModel != null) listModel = null;
         if (sortedEntries != null) sortedEntries.dispose();
@@ -399,7 +399,9 @@ public class DockReestrs extends DockSimple {
     private class ActionListenerExportMSExcel implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(null, "Not implemented yet!");
+//            JOptionPane.showMessageDialog(null, "Not implemented yet!");
+
+
         }
     }
 }

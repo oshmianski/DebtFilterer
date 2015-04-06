@@ -13,6 +13,7 @@ public class DataMainItem {
     private String accounts;
     private String fio;
     private Long numExport;
+    private BigDecimal sumDebtBegin;
     private BigDecimal sumDebt;
     private BigDecimal sumSalary;
     private BigDecimal sumMove;
@@ -25,6 +26,7 @@ public class DataMainItem {
             String unid,
             String accounts,
             String fio,
+            BigDecimal sumDebtBegin,
             BigDecimal sumDebt,
             BigDecimal sumSalary,
             boolean draft,
@@ -34,6 +36,7 @@ public class DataMainItem {
         this.unid = unid;
         this.accounts = accounts;
         this.fio = fio;
+        this.sumDebtBegin = sumDebtBegin;
         this.sumDebt = sumDebt;
         this.sumSalary = sumSalary;
         this.draft = draft;
@@ -128,5 +131,13 @@ public class DataMainItem {
 
     public void setNumExport(Long numExport) {
         this.numExport = numExport;
+    }
+
+    public BigDecimal getSumDebtBegin() {
+        return sumDebtBegin;
+    }
+
+    public void setSumDebtBegin(BigDecimal sumDebtBegin) {
+        this.sumDebtBegin = sumDebtBegin;
     }
 }

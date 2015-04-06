@@ -192,6 +192,8 @@ public class Importer {
 
         BigDecimal sumSalary = new BigDecimal(BigInteger.ZERO);
         BigDecimal sumSalaryAll = new BigDecimal(BigInteger.ZERO);
+        BigDecimal sumDebtBegin = new BigDecimal(BigInteger.ZERO);
+        BigDecimal sumDebtBeginAll = new BigDecimal(BigInteger.ZERO);
         BigDecimal sumDebt = new BigDecimal(BigInteger.ZERO);
         BigDecimal sumMove = new BigDecimal(BigInteger.ZERO);
         BigDecimal sumDebtAll = new BigDecimal(BigInteger.ZERO);
@@ -218,6 +220,7 @@ public class Importer {
                             if (colDebtExt.getCount() == 0) {
                                 sumMove = getSumMove(noteDebt, viewMove);
                                 sumDebt = getSumDebtFirst(noteDebt);
+                                sumDebtBegin = sumDebt;
 
                                 sumDebt = sumDebt.subtract(sumMove);
                                 debtFeeRate = new BigDecimal(noteDebt.getItemValueDouble("debtFeeRate"));
@@ -231,6 +234,7 @@ public class Importer {
                                 dtDebtExt = item.getDateTimeValue();
                                 sumMove = getSumMoveAfterDate(noteDebt, viewMove, dtDebtExt);
                                 sumDebt = new BigDecimal(noteDebtExt.getItemValueDouble("debtSum"));
+                                sumDebtBegin = sumDebt;
 
                                 sumDebt = sumDebt.subtract(sumMove);
                                 debtFeeRate = new BigDecimal(noteDebtExt.getItemValueDouble("debtFeeRate"));
@@ -241,6 +245,7 @@ public class Importer {
                         case 2:
                             sumMove = getSumMove(noteDebt, viewMove);
                             sumDebt = getSumDebtFirst(noteDebt);
+                            sumDebtBegin = sumDebt;
 
                             sumDebt = sumDebt.subtract(sumMove);
                             debtFeeRate = new BigDecimal(noteDebt.getItemValueDouble("debtFeeRate"));
@@ -249,6 +254,7 @@ public class Importer {
 
                         case 1:
                             sumDebt = getSumDebtFirst(noteDebt);
+                            sumDebtBegin = sumDebt;
                             debtFeeRate = new BigDecimal(noteDebt.getItemValueDouble("debtFeeRate"));
 
                             break;
@@ -257,6 +263,7 @@ public class Importer {
                     }
 
                     sumDebtAll = sumDebtAll.add(sumDebt);
+                    sumDebtBeginAll = sumDebtBeginAll.add(sumDebtBegin);
                     sumSalaryAll = sumSalaryAll.add(sumDebt.multiply(debtFeeRate));
 
                     accounts.append(separator);
@@ -286,6 +293,7 @@ public class Importer {
                     ve.getUniversalID(),
                     accounts.toString(),
                     noteSuit.getItemValueString("fio"),
+                    sumDebtBeginAll,
                     sumDebtAll,
                     sumSalaryAll,
                     "1".equalsIgnoreCase(noteSuit.getItemValueString("isDraft")),
