@@ -84,11 +84,12 @@ public class DockDataMain extends DockSimple {
             table.getColumnModel().getColumn(2).setPreferredWidth(300);
             table.getColumnModel().getColumn(3).setPreferredWidth(160);
             table.getColumnModel().getColumn(4).setPreferredWidth(160);
-            table.getColumnModel().getColumn(5).setPreferredWidth(160);
-            table.getColumnModel().getColumn(6).setPreferredWidth(100);
+            table.getColumnModel().getColumn(5).setPreferredWidth(200);
+            table.getColumnModel().getColumn(6).setPreferredWidth(160);
             table.getColumnModel().getColumn(7).setPreferredWidth(100);
             table.getColumnModel().getColumn(8).setPreferredWidth(100);
             table.getColumnModel().getColumn(9).setPreferredWidth(100);
+            table.getColumnModel().getColumn(10).setPreferredWidth(100);
 
             DecimalFormat df = new DecimalFormat("###,##0");
             table.getColumnModel().getColumn(0).setCellRenderer(new ColorRenderer(Color.BLACK, false));
@@ -101,6 +102,7 @@ public class DockDataMain extends DockSimple {
             table.getColumnModel().getColumn(7).setCellRenderer(new ColorRenderer(Color.BLUE, false));
             table.getColumnModel().getColumn(8).setCellRenderer(new ColorRenderer(Color.BLACK, false));
             table.getColumnModel().getColumn(9).setCellRenderer(new ColorRenderer(Color.BLUE, false));
+            table.getColumnModel().getColumn(10).setCellRenderer(new ColorRenderer(Color.BLACK, false));
 
             table.setRowHeight(20);
             table.setShowHorizontalLines(true);

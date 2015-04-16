@@ -47,6 +47,8 @@ public class FilterPanel {
     private TextFilterComponentAccounts textFilterComponentAccounts;
     private RangeMatcherEditorSumSalary rangeMatcherEditorSumSalary;
     private RangeMatcherEditorSumDebt rangeMatcherEditorSumDebt;
+    private RangeMatcherEditorSumSalaryBegin rangeMatcherEditorSumSalaryBegin;
+    private RangeMatcherEditorSumDebtBegin rangeMatcherEditorSumDebtBegin;
     private BooleanMatcherEditorDraft booleanMatcherEditorDraft;
     private BooleanMatcherEditorNumbered booleanMatcherEditorNumbered;
     private BooleanMatcherEditorExclude booleanMatcherEditorExclude;
@@ -81,6 +83,12 @@ public class FilterPanel {
         FilteratorDMSumSalary filteratorDMSumSalary = new FilteratorDMSumSalary();
         rangeMatcherEditorSumSalary = new RangeMatcherEditorSumSalary(filteratorDMSumSalary, container);
 
+        FilteratorDMSumDebtBegin filteratorDMSumDebtBegin = new FilteratorDMSumDebtBegin();
+        rangeMatcherEditorSumDebtBegin = new RangeMatcherEditorSumDebtBegin(filteratorDMSumDebtBegin, container);
+
+        FilteratorDMSumSalaryBegin filteratorDMSumSalaryBegin = new FilteratorDMSumSalaryBegin();
+        rangeMatcherEditorSumSalaryBegin = new RangeMatcherEditorSumSalaryBegin(filteratorDMSumSalaryBegin, container);
+
         FilteratorDMDraft filteratorDMDraft = new FilteratorDMDraft();
         booleanMatcherEditorDraft = new BooleanMatcherEditorDraft(filteratorDMDraft, container);
 
@@ -99,6 +107,8 @@ public class FilterPanel {
 
         this.remainingFilterComponents.add(new CloseableFilterComponent(model, textFilterComponentFIO, selectedFilterComponents, remainingFilterComponents, visibleControl));
         this.remainingFilterComponents.add(new CloseableFilterComponent(model, textFilterComponentAccounts, selectedFilterComponents, remainingFilterComponents, visibleControl));
+        this.remainingFilterComponents.add(new CloseableFilterComponent(model, rangeMatcherEditorSumDebtBegin, selectedFilterComponents, remainingFilterComponents, visibleControl));
+        this.remainingFilterComponents.add(new CloseableFilterComponent(model, rangeMatcherEditorSumSalaryBegin, selectedFilterComponents, remainingFilterComponents, visibleControl));
 
         // create the filters panel
         JPanel filtersPanel = new JEventListPanel(selectedFilterComponents, new CloseableFilterComponentPanelFormat<DataMainItem>());

@@ -3,14 +3,15 @@ package by.oshmianski.filter.DM;/*
  * and open the template in the editor.
  */
 
+import by.oshmianski.objects.DataMainItem;
 import ca.odell.glazedlists.Filterator;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class FilteratorDMSumDebt implements Filterator<BigDecimal, by.oshmianski.objects.DataMainItem> {
+public class FilteratorDMSumDebt implements Filterator<BigDecimal, DataMainItem> {
     @Override
-    public void getFilterValues(List<BigDecimal> baseList, by.oshmianski.objects.DataMainItem element) {
+    public void getFilterValues(List<BigDecimal> baseList, DataMainItem element) {
 
         baseList.add(element.getSumDebt());
     }

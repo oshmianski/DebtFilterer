@@ -192,6 +192,7 @@ public class Importer {
 
         BigDecimal sumSalary = new BigDecimal(BigInteger.ZERO);
         BigDecimal sumSalaryAll = new BigDecimal(BigInteger.ZERO);
+        BigDecimal sumSalaryBeginAll = new BigDecimal(BigInteger.ZERO);
         BigDecimal sumDebtBegin = new BigDecimal(BigInteger.ZERO);
         BigDecimal sumDebtBeginAll = new BigDecimal(BigInteger.ZERO);
         BigDecimal sumDebt = new BigDecimal(BigInteger.ZERO);
@@ -265,6 +266,7 @@ public class Importer {
                     sumDebtAll = sumDebtAll.add(sumDebt);
                     sumDebtBeginAll = sumDebtBeginAll.add(sumDebtBegin);
                     sumSalaryAll = sumSalaryAll.add(sumDebt.multiply(debtFeeRate));
+                    sumSalaryBeginAll = sumSalaryBeginAll.add(sumDebtBegin.multiply(debtFeeRate));
 
                     accounts.append(separator);
                     accounts.append(noteDebt.getItemValueString("debtPersonalAccount"));
@@ -296,6 +298,7 @@ public class Importer {
                     sumDebtBeginAll,
                     sumDebtAll,
                     sumSalaryAll,
+                    sumSalaryBeginAll,
                     "1".equalsIgnoreCase(noteSuit.getItemValueString("isDraft")),
                     isExclude,
                     !noteSuit.getItemValueString("numExport").isEmpty(),

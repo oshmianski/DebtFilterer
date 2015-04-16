@@ -11,7 +11,7 @@ import ca.odell.glazedlists.gui.WritableTableFormat;
  * Time: 11:34 AM
  */
 public class DataMainModel implements WritableTableFormat<DataMainItem> {
-    private String[] colsTitle = {"#", "ФИО", "Лицевые счета", "Сумма начального долга", "Сумма долга", "Сумма вознаграждения", "Черновик", "Исключить", "Нумерованная", "Номер ДП"};
+    private String[] colsTitle = {"#", "ФИО", "Лицевые счета", "Сумма начального долга", "Сумма долга", "Сумма начального вознаг-я", "Сумма вознаграждения", "Черновик", "Исключить", "Нумерованная", "Номер ДП"};
 
     private FilterList<DataMainItem> filteredEntries;
 
@@ -43,14 +43,16 @@ public class DataMainModel implements WritableTableFormat<DataMainItem> {
             case 4:
                 return dataMainItem.getSumDebt();
             case 5:
-                return dataMainItem.getSumSalary();
+                return dataMainItem.getSumSalaryBegin();
             case 6:
-                return dataMainItem.isDraft();
+                return dataMainItem.getSumSalary();
             case 7:
-                return dataMainItem.isExclude();
+                return dataMainItem.isDraft();
             case 8:
-                return dataMainItem.isNumbered();
+                return dataMainItem.isExclude();
             case 9:
+                return dataMainItem.isNumbered();
+            case 10:
                 return dataMainItem.getNumExport();
             default:
                 return null;

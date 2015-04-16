@@ -16,6 +16,7 @@ public class DataMainItem {
     private BigDecimal sumDebtBegin;
     private BigDecimal sumDebt;
     private BigDecimal sumSalary;
+    private BigDecimal sumSalaryBegin;
     private BigDecimal sumMove;
     private BigDecimal feeRate;
     private boolean draft;
@@ -29,6 +30,7 @@ public class DataMainItem {
             BigDecimal sumDebtBegin,
             BigDecimal sumDebt,
             BigDecimal sumSalary,
+            BigDecimal sumSalaryBegin,
             boolean draft,
             boolean exclude,
             boolean numbered,
@@ -39,6 +41,7 @@ public class DataMainItem {
         this.sumDebtBegin = sumDebtBegin;
         this.sumDebt = sumDebt;
         this.sumSalary = sumSalary;
+        this.sumSalaryBegin = sumSalaryBegin;
         this.draft = draft;
         this.exclude = exclude;
         this.numbered = numbered;
@@ -139,5 +142,13 @@ public class DataMainItem {
 
     public void setSumDebtBegin(BigDecimal sumDebtBegin) {
         this.sumDebtBegin = sumDebtBegin;
+    }
+
+    public BigDecimal getSumSalaryBegin() {
+        return sumSalaryBegin;
+    }
+
+    public void setSumSalaryBegin(BigDecimal sumSalaryBegin) {
+        this.sumSalaryBegin = sumSalaryBegin;
     }
 }

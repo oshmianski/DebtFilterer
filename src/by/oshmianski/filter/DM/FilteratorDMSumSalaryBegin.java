@@ -9,10 +9,10 @@ import ca.odell.glazedlists.Filterator;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class FilteratorDMSumSalary implements Filterator<BigDecimal, DataMainItem> {
+public class FilteratorDMSumSalaryBegin implements Filterator<BigDecimal, DataMainItem> {
     @Override
     public void getFilterValues(List<BigDecimal> baseList, DataMainItem element) {
 
-        baseList.add(element.getSumSalary());
+        baseList.add(element.getSumSalaryBegin());
     }
 }
