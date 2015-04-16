@@ -94,9 +94,11 @@ public class Importer {
 
             BigDecimal sumDebt = new BigDecimal(BigInteger.ZERO);
             BigDecimal sumSalary = new BigDecimal(BigInteger.ZERO);
+            BigDecimal sumDebtBegin = new BigDecimal(BigInteger.ZERO);
+            BigDecimal sumSalaryBegin = new BigDecimal(BigInteger.ZERO);
             int countItems = 0;
 
-            ui.setInfoDataGeneral(countItems, sumDebt, sumSalary);
+            ui.setInfoDataGeneral(countItems, sumDebt, sumSalary, sumDebtBegin, sumSalaryBegin);
 
             ve = nav.getFirst();
             while (ve != null) {
@@ -104,6 +106,8 @@ public class Importer {
 
                 sumDebt = sumDebt.add(dataMainItem.getSumDebt());
                 sumSalary = sumSalary.add(dataMainItem.getSumSalary());
+                sumDebtBegin = sumDebtBegin.add(dataMainItem.getSumDebtBegin());
+                sumSalaryBegin = sumSalaryBegin.add(dataMainItem.getSumSalaryBegin());
 
                 ui.appendDataMainItem(dataMainItem);
                 countItems++;
@@ -121,7 +125,7 @@ public class Importer {
             }
 
             ui.setFilteredCount();
-            ui.setInfoDataGeneral(countItems, sumDebt, sumSalary);
+            ui.setInfoDataGeneral(countItems, sumDebt, sumSalary, sumDebtBegin, sumSalaryBegin);
         } catch (Exception e) {
             MyLog.add2Log(e);
         } finally {

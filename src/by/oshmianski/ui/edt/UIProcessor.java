@@ -35,7 +35,7 @@ public interface UIProcessor {
     void setInfoData(FilterList<DataMainItem> itemsFilter);
 
     @RequiresEDT
-    void setInfoDataGeneral(int count, BigDecimal sumDebt, BigDecimal sumSalary);
+    void setInfoDataGeneral(int count, BigDecimal sumDebt, BigDecimal sumSalary, BigDecimal sumDebtBegin, BigDecimal sumSalaryBegin);
 
     @RequiresEDT
     void clearDataMainItems();

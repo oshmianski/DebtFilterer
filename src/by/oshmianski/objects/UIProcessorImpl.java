@@ -59,8 +59,8 @@ public class UIProcessorImpl implements UIProcessor {
     }
 
     @Override
-    public void setInfoDataGeneral(int count, BigDecimal sumDebt, BigDecimal sumSalary) {
-        dockInfo.setInfoDataGeneral(count, sumDebt, sumSalary);
+    public void setInfoDataGeneral(int count, BigDecimal sumDebt, BigDecimal sumSalary, BigDecimal sumDebtBegin, BigDecimal sumSalaryBegin) {
+        dockInfo.setInfoDataGeneral(count, sumDebt, sumSalary, sumDebtBegin, sumSalaryBegin);
     }
 
     @Override

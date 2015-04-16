@@ -30,21 +30,33 @@ public class DockInfo extends DockSimple {
 
     private NumberLabel allRows;
     private NumberLabel allSumDebt;
-    private NumberLabel allSumDSalary;
+    private NumberLabel allSumSalary;
     private NumberLabel allSumDebtMid;
-    private NumberLabel allSumDSalaryMid;
+    private NumberLabel allSumSalaryMid;
+    private NumberLabel allSumDebtBegin;
+    private NumberLabel allSumSalaryBegin;
+    private NumberLabel allSumDebtMidBegin;
+    private NumberLabel allSumSalaryMidBegin;
 
     private NumberLabel allRowsFilter;
     private NumberLabel allSumDebtFilter;
-    private NumberLabel allSumDSalaryFilter;
+    private NumberLabel allSumSalaryFilter;
     private NumberLabel allSumDebtFilterMid;
-    private NumberLabel allSumDSalaryFilterMid;
+    private NumberLabel allSumSalaryFilterMid;
+    private NumberLabel allSumDebtFilterBegin;
+    private NumberLabel allSumSalaryFilterBegin;
+    private NumberLabel allSumDebtFilterMidBegin;
+    private NumberLabel allSumSalaryFilterMidBegin;
 
     private NumberLabel sumExtDebt;
     private NumberLabel sumExtSalary;
+    private NumberLabel sumExtDebtBegin;
+    private NumberLabel sumExtSalaryBegin;
 
     BigDecimal sumDebt = new BigDecimal(BigInteger.ZERO);
     BigDecimal sumSalary = new BigDecimal(BigInteger.ZERO);
+    BigDecimal sumDebtBegin = new BigDecimal(BigInteger.ZERO);
+    BigDecimal sumSalaryBegin = new BigDecimal(BigInteger.ZERO);
     int count = 0;
 
     public DockInfo() {
@@ -52,18 +64,28 @@ public class DockInfo extends DockSimple {
 
         allRows = new NumberLabel();
         allSumDebt = new NumberLabel();
-        allSumDSalary = new NumberLabel();
+        allSumSalary = new NumberLabel();
         allSumDebtMid = new NumberLabel();
-        allSumDSalaryMid = new NumberLabel();
+        allSumSalaryMid = new NumberLabel();
+        allSumDebtBegin = new NumberLabel();
+        allSumSalaryBegin = new NumberLabel();
+        allSumDebtMidBegin = new NumberLabel();
+        allSumSalaryMidBegin = new NumberLabel();
 
         allRowsFilter = new NumberLabel();
         allSumDebtFilter = new NumberLabel();
-        allSumDSalaryFilter = new NumberLabel();
+        allSumSalaryFilter = new NumberLabel();
         allSumDebtFilterMid = new NumberLabel();
-        allSumDSalaryFilterMid = new NumberLabel();
+        allSumSalaryFilterMid = new NumberLabel();
+        allSumDebtFilterBegin = new NumberLabel();
+        allSumSalaryFilterBegin = new NumberLabel();
+        allSumDebtFilterMidBegin = new NumberLabel();
+        allSumSalaryFilterMidBegin = new NumberLabel();
 
         sumExtDebt = new NumberLabel(new DecimalFormat("###,##0.###"));
         sumExtSalary = new NumberLabel(new DecimalFormat("###,##0.###"));
+        sumExtDebtBegin = new NumberLabel(new DecimalFormat("###,##0.###"));
+        sumExtSalaryBegin = new NumberLabel(new DecimalFormat("###,##0.###"));
 
         progress = new JProgressBar();
         progress.setStringPainted(true);
@@ -98,45 +120,63 @@ public class DockInfo extends DockSimple {
 
     }
 
-    public void setInfoDataGeneral(int count, BigDecimal sumDebt, BigDecimal sumSalary) {
+    public void setInfoDataGeneral(int count, BigDecimal sumDebt, BigDecimal sumSalary, BigDecimal sumDebtBegin, BigDecimal sumSalaryBegin) {
         allRows.setText(count);
         allSumDebt.setText(sumDebt);
-        allSumDSalary.setText(sumSalary);
+        allSumSalary.setText(sumSalary);
+        allSumDebtBegin.setText(sumDebtBegin);
+        allSumSalaryBegin.setText(sumSalaryBegin);
 
         this.count = count;
         this.sumDebt = sumDebt;
         this.sumSalary = sumSalary;
+        this.sumDebtBegin = sumDebtBegin;
+        this.sumSalaryBegin = sumSalaryBegin;
 
         if (count > 0) {
             allSumDebtMid.setText(sumDebt.divide(new BigDecimal(count), 4, RoundingMode.HALF_UP));
-            allSumDSalaryMid.setText(sumSalary.divide(new BigDecimal(count), 4, RoundingMode.HALF_UP));
+            allSumSalaryMid.setText(sumSalary.divide(new BigDecimal(count), 4, RoundingMode.HALF_UP));
+            allSumDebtMidBegin.setText(sumDebtBegin.divide(new BigDecimal(count), 4, RoundingMode.HALF_UP));
+            allSumSalaryMidBegin.setText(sumSalaryBegin.divide(new BigDecimal(count), 4, RoundingMode.HALF_UP));
         } else {
             allSumDebtMid.setText("0");
-            allSumDSalaryMid.setText("0");
+            allSumSalaryMid.setText("0");
+            allSumDebtMidBegin.setText("0");
+            allSumSalaryMidBegin.setText("0");
         }
     }
 
     public void setInfoData(FilterList<DataMainItem> itemsFilter) {
         BigDecimal sumDebtFilter = new BigDecimal(BigInteger.ZERO);
         BigDecimal sumSalaryFilter = new BigDecimal(BigInteger.ZERO);
+        BigDecimal sumDebtFilterBegin = new BigDecimal(BigInteger.ZERO);
+        BigDecimal sumSalaryFilterBegin = new BigDecimal(BigInteger.ZERO);
 
         BigDecimal count = new BigDecimal(itemsFilter.size());
 
         for (DataMainItem item : itemsFilter) {
             sumDebtFilter = sumDebtFilter.add(item.getSumDebt());
             sumSalaryFilter = sumSalaryFilter.add(item.getSumSalary());
+            sumDebtFilterBegin = sumDebtFilterBegin.add(item.getSumDebtBegin());
+            sumSalaryFilterBegin = sumSalaryFilterBegin.add(item.getSumSalaryBegin());
         }
 
         allRowsFilter.setText(itemsFilter.size());
         allSumDebtFilter.setText(sumDebtFilter);
-        allSumDSalaryFilter.setText(sumSalaryFilter);
+        allSumSalaryFilter.setText(sumSalaryFilter);
+        allSumDebtFilterBegin.setText(sumDebtFilterBegin);
+        allSumSalaryFilterBegin.setText(sumSalaryFilterBegin);
 
         if (itemsFilter.size() > 0) {
             allSumDebtFilterMid.setText(sumDebtFilter.divide(count, 4, RoundingMode.HALF_UP));
-            allSumDSalaryFilterMid.setText(sumSalaryFilter.divide(count, 4, RoundingMode.HALF_UP));
+            allSumSalaryFilterMid.setText(sumSalaryFilter.divide(count, 4, RoundingMode.HALF_UP));
+            allSumDebtFilterMidBegin.setText(sumDebtFilterBegin.divide(count, 4, RoundingMode.HALF_UP));
+            allSumSalaryFilterMidBegin.setText(sumSalaryFilterBegin.divide(count, 4, RoundingMode.HALF_UP));
         } else {
             allSumDebtFilterMid.setText("0");
-            allSumDSalaryFilterMid.setText("0");
+            allSumSalaryFilterMid.setText("0");
+            allSumDebtFilterMidBegin.setText("0");
+            allSumSalaryFilterMidBegin.setText("0");
         }
 
         if (!(sumDebt.compareTo(BigDecimal.ZERO) == 0)) {
@@ -145,17 +185,28 @@ public class DockInfo extends DockSimple {
             sumExtDebt.setText("1");
         }
 
+        if (!(sumDebtBegin.compareTo(BigDecimal.ZERO) == 0)) {
+            sumExtDebtBegin.setText(sumDebtFilterBegin.divide(sumDebtBegin, 4, RoundingMode.HALF_UP));
+        } else {
+            sumExtDebtBegin.setText("1");
+        }
+
         if (!(sumSalary.compareTo(BigDecimal.ZERO) == 0)) {
             sumExtSalary.setText(sumSalaryFilter.divide(sumSalary, 4, RoundingMode.HALF_UP));
         } else {
             sumExtSalary.setText("1");
         }
+        if (!(sumSalaryBegin.compareTo(BigDecimal.ZERO) == 0)) {
+            sumExtSalaryBegin.setText(sumSalaryFilterBegin.divide(sumSalaryBegin, 4, RoundingMode.HALF_UP));
+        } else {
+            sumExtSalaryBegin.setText("1");
+        }
     }
 
     private JPanel getGeneralPanel() {
         FormLayout layout = new FormLayout(
-                "2px, right:160px, 5px, left:90px, 5px", // columns
-                "20px, 15px, 20px, 15px, 20px, 10px");      // rows
+                "2px, right:180px, 5px, left:90px, 5px", // columns
+                "20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 10px");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
@@ -168,11 +219,19 @@ public class DockInfo extends DockSimple {
         builder.addLabel("Сумма долга:", cc.xy(2, 2));
         builder.add(allSumDebt, cc.xy(4, 2));
         builder.addLabel("Сумма вознаграждения:", cc.xy(2, 3));
-        builder.add(allSumDSalary, cc.xy(4, 3));
+        builder.add(allSumSalary, cc.xy(4, 3));
         builder.addLabel("Сумма долга ср.:", cc.xy(2, 4));
         builder.add(allSumDebtMid, cc.xy(4, 4));
         builder.addLabel("Сумма вознаграждения ср.:", cc.xy(2, 5));
-        builder.add(allSumDSalaryMid, cc.xy(4, 5));
+        builder.add(allSumSalaryMid, cc.xy(4, 5));
+        builder.addLabel("Сумма долга (Н):", cc.xy(2, 6));
+        builder.add(allSumDebtBegin, cc.xy(4, 6));
+        builder.addLabel("Сумма вознаграждения (Н):", cc.xy(2, 7));
+        builder.add(allSumSalaryBegin, cc.xy(4, 7));
+        builder.addLabel("Сумма долга ср. (Н):", cc.xy(2, 8));
+        builder.add(allSumDebtMidBegin, cc.xy(4, 8));
+        builder.addLabel("Сумма вознаграждения ср. (Н):", cc.xy(2, 9));
+        builder.add(allSumSalaryMidBegin, cc.xy(4, 9));
 
         JPanel panel = builder.getPanel();
         panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createTitledBorder(
@@ -185,8 +244,8 @@ public class DockInfo extends DockSimple {
 
     private JPanel getFilterPanel() {
         FormLayout layout = new FormLayout(
-                "2px, right:160px, 5px, left:90px, 5px", // columns
-                "20px, 15px, 20px, 15px, 20px, 10px");      // rows
+                "2px, right:180px, 5px, left:90px, 5px", // columns
+                "20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 10px");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
@@ -199,11 +258,19 @@ public class DockInfo extends DockSimple {
         builder.addLabel("Сумма долга:", cc.xy(2, 2));
         builder.add(allSumDebtFilter, cc.xy(4, 2));
         builder.addLabel("Сумма вознаграждения:", cc.xy(2, 3));
-        builder.add(allSumDSalaryFilter, cc.xy(4, 3));
+        builder.add(allSumSalaryFilter, cc.xy(4, 3));
         builder.addLabel("Сумма долга ср.:", cc.xy(2, 4));
         builder.add(allSumDebtFilterMid, cc.xy(4, 4));
         builder.addLabel("Сумма вознаграждения ср.:", cc.xy(2, 5));
-        builder.add(allSumDSalaryFilterMid, cc.xy(4, 5));
+        builder.add(allSumSalaryFilterMid, cc.xy(4, 5));
+        builder.addLabel("Сумма долга (Н):", cc.xy(2, 6));
+        builder.add(allSumDebtFilterBegin, cc.xy(4, 6));
+        builder.addLabel("Сумма вознаграждения (Н):", cc.xy(2, 7));
+        builder.add(allSumSalaryFilterBegin, cc.xy(4, 7));
+        builder.addLabel("Сумма долга ср. (Н):", cc.xy(2, 8));
+        builder.add(allSumDebtFilterMidBegin, cc.xy(4, 8));
+        builder.addLabel("Сумма вознаграждения ср. (Н):", cc.xy(2, 9));
+        builder.add(allSumSalaryFilterMidBegin, cc.xy(4, 9));
 
         JPanel panel = builder.getPanel();
         panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createTitledBorder(
@@ -216,7 +283,7 @@ public class DockInfo extends DockSimple {
 
     private JPanel getExtPanel() {
         FormLayout layout = new FormLayout(
-                "2px, right:160px, 5px, left:90px, 5px", // columns
+                "2px, right:180px, 5px, left:90px, 5px", // columns
                 "20px, 15px, 20px, 15px, 20px, 10px");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
@@ -229,6 +296,10 @@ public class DockInfo extends DockSimple {
         builder.add(sumExtDebt, cc.xy(4, 1));
         builder.addLabel("Отношение вознагр-я:", cc.xy(2, 2));
         builder.add(sumExtSalary, cc.xy(4, 2));
+        builder.addLabel("Отношение долга (Н):", cc.xy(2, 3));
+        builder.add(sumExtDebtBegin, cc.xy(4, 3));
+        builder.addLabel("Отношение вознагр-я (Н):", cc.xy(2, 4));
+        builder.add(sumExtSalaryBegin, cc.xy(4, 4));
 
         JPanel panel = builder.getPanel();
         panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createTitledBorder(
